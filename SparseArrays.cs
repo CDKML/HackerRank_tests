@@ -26,7 +26,28 @@ class Result
 
     public static List<int> matchingStrings(List<string> strings, List<string> queries)
     {
-        return queries.Select(query => strings.Count(str => query.Equals(str))).ToList();
+        IDictionary<string, int> matching = new Dictionary<string, int>();
+        List<int> occurrences = new List<int>();
+        foreach (var str in strings)
+        {
+            if(matching.ContainsKey(str))
+                matching[str] += 1;
+            else
+            {
+                matching.Add(str, 1);
+            }
+        }
+
+        foreach (var qry in queries)
+        {
+            if (matching.ContainsKey(qry))
+                occurrences.Add(matching[qry]);
+            else
+            {
+                occurrences.Add(0);
+            }
+        }
+        return occurrences;
     }
 
 }
