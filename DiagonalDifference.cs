@@ -21,8 +21,7 @@ class Result
      * The function is expected to return an INTEGER.
      * The function accepts 2D_INTEGER_ARRAY arr as parameter.
      */
-
-    public static int diagonalDifference(List<List<int>> arr)
+    public static int diagonalDifferenceO_N_Square(List<List<int>> arr)
     {
         int leftDiagonal = 0;
         int rightDiagonal = 0;
@@ -50,16 +49,32 @@ class Result
         Console.WriteLine("LD: " + leftDiagonal + " RD: " + rightDiagonal);
 
         return Math.Abs(leftDiagonal - rightDiagonal);
-
     }
 
+    public static int diagonalDifference(List<List<int>> arr)
+    {
+        int leftDiagonal = 0;
+        int rightDiagonal = 0;
+
+        for (int i = 0; i < arr.Count; i++)
+        {
+            leftDiagonal += arr[i][i];
+        }
+
+        for (int j = 0; j < arr.Count; j++)
+        {
+            rightDiagonal += arr[j][arr.Count - 1 - j];
+        }
+
+        return Math.Abs(leftDiagonal - rightDiagonal);
+    }
 }
 
 class Solution
 {
     public static void Main(string[] args)
     {
-        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+        //TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
         int n = Convert.ToInt32(Console.ReadLine().Trim());
 
@@ -72,9 +87,9 @@ class Solution
 
         int result = Result.diagonalDifference(arr);
 
-        textWriter.WriteLine(result);
+        //textWriter.WriteLine(result);
 
-        textWriter.Flush();
-        textWriter.Close();
+        //textWriter.Flush();
+        //textWriter.Close();
     }
 }
